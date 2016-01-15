@@ -1,0 +1,8 @@
+<mods xmlns="http://www.loc.gov/mods/v3">
+  <titleInfo>
+    <title>Example Object</title>
+  </titleInfo>
+  <name>
+    <displayForm>The Internet</displayForm>
+  </name>
+</mods>
