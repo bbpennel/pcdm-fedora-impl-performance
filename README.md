@@ -25,3 +25,7 @@ Using ldp:DirectContainers for nesting children, full PCDM membership relations 
 flat-pcdm
 =========
 Using ldp:IndirectContainers for representing children relations in a flat structure, full PCDM membership relations and types.
+
+
+
+Scripts are derived from PCDM in Action examples https://github.com/awead/ldp-pcdm

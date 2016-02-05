@@ -1,10 +1,7 @@
 #!/usr/bin/env bash
-echo "====Cleaning up===="
-curl -is -X DELETE 127.0.0.1:8080/fcrepo/rest/flatpcdm > /dev/null
-curl -is -X DELETE 127.0.0.1:8080/fcrepo/rest/flatpcdm/fcr:tombstone > /dev/null
-
-curl -is -X DELETE 127.0.0.1:8080/fcrepo/rest/flatpcdmobjects > /dev/null
-curl -is -X DELETE 127.0.0.1:8080/fcrepo/rest/flatpcdmobjects/fcr:tombstone > /dev/null
+vagrant ssh -c "sudo /etc/init.d/tomcat7 stop"
+vagrant ssh -c "sudo rm -r /var/lib/tomcat7/fcrepo4-data/*"
+vagrant ssh -c "sudo /etc/init.d/tomcat7 start"
 
 curl -is -X PUT -H "Content-Type: text/turtle" --data-binary @pcdm-collection.ttl 127.0.0.1:8080/fcrepo/rest/flatpcdm > /dev/null
 curl -is -X PUT -H "Content-Type: text/turtle" --data-binary @pcdm-indirect-to-parent.ttl 127.0.0.1:8080/fcrepo/rest/flatpcdm/members/ > /dev/null
@@ -58,3 +55,6 @@ END=`date +%s`
 TOTAL=$(( $END - $START ))
 
 echo "Total time to create $OBJECTS flatpcdm: $TOTAL"
+
+sleep 1800
+curl -si -X POST "http://localhost:8080/fuseki/test/query" --header "Content-Type: application/sparql-query" --data-binary "SELECT count(*) WHERE {  ?subject ?predicate ?object . FILTER (regex(STR(?subject), 'fcrepo/rest')) }"
