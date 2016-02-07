@@ -10,7 +10,7 @@ curl -is -X PUT 127.0.0.1:8080/fcrepo/rest/flatpcdmobjects > /dev/null
 START=`date +%s`
 
 COUNT=0
-OBJECTS=1000
+OBJECTS=${NUM_OBJS:-1000}
 while [ $COUNT -lt $OBJECTS ]; do
 	
 	curl -is -X PUT -H "Content-Type: text/turtle" --data-binary @pcdm-object.ttl 127.0.0.1:8080/fcrepo/rest/flatpcdmobjects/obj$COUNT/ > /dev/null
@@ -55,6 +55,3 @@ END=`date +%s`
 TOTAL=$(( $END - $START ))
 
 echo "Total time to create $OBJECTS flatpcdm: $TOTAL"
-
-sleep 1800
-curl -si -X POST "http://127.0.0.1:8080/fuseki/test/query" --header "Content-Type: application/sparql-query" --data-binary "SELECT count(*) WHERE {  ?subject ?predicate ?object . FILTER (regex(STR(?subject), 'fcrepo/rest')) }"

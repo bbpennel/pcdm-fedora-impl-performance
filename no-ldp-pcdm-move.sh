@@ -5,7 +5,7 @@ curl -is -X PUT 127.0.0.1:8080/fcrepo/rest/noldp/dest > /dev/null
 START=`date +%s`
 
 COUNT=0
-OBJECTS=1000
+OBJECTS=${NUM_OBJS:-1000}
 while [ $COUNT -lt $OBJECTS ]; do
 	
 	echo "PREFIX pcdm: <http://pcdm.org/models#>
@@ -27,5 +27,5 @@ TOTAL=$(( $END - $START ))
 
 echo "Total time to move $OBJECTS noldp: $TOTAL"
 
-sleep 10
+sleep ${WAIT_BEFORE_QUERY:-1}
 curl -si -X POST "http://127.0.0.1:8080/fuseki/test/query" --header "Content-Type: application/sparql-query" --data-binary "SELECT count(*) WHERE {  ?subject ?predicate ?object . FILTER (regex(STR(?subject), 'fcrepo/rest')) }" 2> /dev/null

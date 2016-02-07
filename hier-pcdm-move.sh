@@ -6,7 +6,7 @@ curl -is -X PUT -H "Content-Type: text/turtle" --data-binary @direct-has-member.
 START=`date +%s`
 
 COUNT=0
-OBJECTS=1000
+OBJECTS=${NUM_OBJS:-1000}
 while [ $COUNT -lt $OBJECTS ]; do
 	
 	curl -is -X MOVE -H "Destination: http://127.0.0.1:8080/fcrepo/rest/hierpcdm/m/dest/m/obj$COUNT" 127.0.0.1:8080/fcrepo/rest/hierpcdm/m/obj$COUNT > /dev/null

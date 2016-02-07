@@ -3,7 +3,7 @@
 START=`date +%s`
 
 COUNT=0
-OBJECTS=1000
+OBJECTS=${NUM_OBJS:-1000}
 while [ $COUNT -lt $OBJECTS ]; do
 	
 	curl -is -X DELETE 127.0.0.1:8080/fcrepo/rest/flatpcdmobjects/obj$COUNT/ > /dev/null
