@@ -11,7 +11,7 @@ while [ $COUNT -lt $OBJECTS ]; do
 	
 	curl -is -X MOVE -H "Destination: http://127.0.0.1:8080/fcrepo/rest/hierpcdm/m/dest/m/obj$COUNT" 127.0.0.1:8080/fcrepo/rest/hierpcdm/m/obj$COUNT > /dev/null
 	
-	echo "$COUNT"
+	# echo "$COUNT"
 	
 	COUNT=$(( COUNT + 1 ))
 done

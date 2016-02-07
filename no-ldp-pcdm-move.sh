@@ -17,7 +17,7 @@ while [ $COUNT -lt $OBJECTS ]; do
 	echo "PREFIX pcdm: <http://pcdm.org/models#> INSERT { <> pcdm:hasMember </fcrepo/rest/noldp/dest/obj$COUNT> } WHERE {}
 	" | curl -is -X PATCH -H "Content-Type: application/sparql-update" --data-binary @- 127.0.0.1:8080/fcrepo/rest/noldp/dest > /dev/null
 	
-	echo "$COUNT"
+	# echo "$COUNT"
 	
 	COUNT=$(( COUNT + 1 ))
 done
@@ -28,4 +28,4 @@ TOTAL=$(( $END - $START ))
 echo "Total time to move $OBJECTS noldp: $TOTAL"
 
 sleep 10
-curl -si -X POST "http://localhost:8080/fuseki/test/query" --header "Content-Type: application/sparql-query" --data-binary "SELECT count(*) WHERE {  ?subject ?predicate ?object . FILTER (regex(STR(?subject), 'fcrepo/rest')) }" 2> /dev/null
+curl -si -X POST "http://127.0.0.1:8080/fuseki/test/query" --header "Content-Type: application/sparql-query" --data-binary "SELECT count(*) WHERE {  ?subject ?predicate ?object . FILTER (regex(STR(?subject), 'fcrepo/rest')) }" 2> /dev/null

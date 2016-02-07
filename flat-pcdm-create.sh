@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-vagrant ssh -c "sudo /etc/init.d/tomcat7 stop"
-vagrant ssh -c "sudo rm -r /var/lib/tomcat7/fcrepo4-data/*"
-vagrant ssh -c "sudo /etc/init.d/tomcat7 start"
+vagrant ssh -c "sudo /etc/init.d/tomcat7 stop" > /dev/null 2> /dev/null
+vagrant ssh -c "sudo rm -r /var/lib/tomcat7/fcrepo4-data/*" > /dev/null 2> /dev/null
+vagrant ssh -c "sudo /etc/init.d/tomcat7 start" > /dev/null 2> /dev/null
 
 curl -is -X PUT -H "Content-Type: text/turtle" --data-binary @pcdm-collection.ttl 127.0.0.1:8080/fcrepo/rest/flatpcdm > /dev/null
 curl -is -X PUT -H "Content-Type: text/turtle" --data-binary @pcdm-indirect-to-parent.ttl 127.0.0.1:8080/fcrepo/rest/flatpcdm/members/ > /dev/null
@@ -46,7 +46,7 @@ while [ $COUNT -lt $OBJECTS ]; do
 	curl -is -X PUT 127.0.0.1:8080/fcrepo/rest/flatpcdmobjects/file1_$COUNT/files/data-file > /dev/null
 	curl -is -X PATCH -H "Content-Type: application/sparql-update" --data-binary @original-file.ru 127.0.0.1:8080/fcrepo/rest/flatpcdmobjects/file1_$COUNT/files/data-file/fcr:metadata > /dev/null
 	
-	echo "$COUNT"
+	# echo "$COUNT"
 	
 	COUNT=$(( COUNT + 1 ))
 done
@@ -57,4 +57,4 @@ TOTAL=$(( $END - $START ))
 echo "Total time to create $OBJECTS flatpcdm: $TOTAL"
 
 sleep 1800
-curl -si -X POST "http://localhost:8080/fuseki/test/query" --header "Content-Type: application/sparql-query" --data-binary "SELECT count(*) WHERE {  ?subject ?predicate ?object . FILTER (regex(STR(?subject), 'fcrepo/rest')) }"
+curl -si -X POST "http://127.0.0.1:8080/fuseki/test/query" --header "Content-Type: application/sparql-query" --data-binary "SELECT count(*) WHERE {  ?subject ?predicate ?object . FILTER (regex(STR(?subject), 'fcrepo/rest')) }"

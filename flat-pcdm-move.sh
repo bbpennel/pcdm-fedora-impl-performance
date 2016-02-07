@@ -24,7 +24,7 @@ while [ $COUNT -lt $OBJECTS ]; do
 		} WHERE {
 	}" | curl -is -X PATCH -H "Content-Type: application/sparql-update" --data-binary @- http://127.0.0.1:8080/fcrepo/rest/flatpcdmobjects/dest/members/objProxy$COUNT
 	
-	echo "$COUNT"
+	# echo "$COUNT"
 	
 	COUNT=$(( COUNT + 1 ))
 done

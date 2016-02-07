@@ -9,7 +9,7 @@ while [ $COUNT -lt $OBJECTS ]; do
 	curl -is -X DELETE 127.0.0.1:8080/fcrepo/rest/flatpcdmobjects/obj$COUNT/ > /dev/null
 	curl -is -X DELETE 127.0.0.1:8080/fcrepo/rest/flatpcdmobjects/obj$COUNT/fcr:tombstone > /dev/null
 	
-	echo "$COUNT"
+	# echo "$COUNT"
 	
 	COUNT=$(( COUNT + 1 ))
 done
