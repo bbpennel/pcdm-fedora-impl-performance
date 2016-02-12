@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
-vagrant ssh -c "sudo /etc/init.d/tomcat7 stop" > /dev/null 2> /dev/null
-vagrant ssh -c "sudo rm -r /var/lib/tomcat7/fcrepo4-data/*" > /dev/null 2> /dev/null
-vagrant ssh -c "sudo /etc/init.d/tomcat7 start" > /dev/null 2> /dev/null
 
 curl -is -X PUT -H "Content-Type: text/turtle" --data-binary @pcdm-collection.ttl 127.0.0.1:8080/fcrepo/rest/flatpcdm > /dev/null
 curl -is -X PUT -H "Content-Type: text/turtle" --data-binary @pcdm-indirect-to-parent.ttl 127.0.0.1:8080/fcrepo/rest/flatpcdm/members/ > /dev/null
@@ -39,7 +36,7 @@ while [ $COUNT -lt $OBJECTS ]; do
 
 	# Establish the files
 	curl -is -X PUT -H "Content-Type: text/turtle" --data-binary @direct-has-file.ru 127.0.0.1:8080/fcrepo/rest/flatpcdmobjects/file0_$COUNT/files/ > /dev/null
-	curl -is -X PUT -H "Content-Type: image/jpeg" --data-binary @cover.jpg 127.0.0.1:8080/fcrepo/rest/flatpcdmobjects/file0_$COUNT/files/data-file > /dev/null
+	curl -is -X PUT 127.0.0.1:8080/fcrepo/rest/flatpcdmobjects/file0_$COUNT/files/data-file > /dev/null
 	curl -is -X PATCH -H "Content-Type: application/sparql-update" --data-binary @original-file.ru 127.0.0.1:8080/fcrepo/rest/flatpcdmobjects/file0_$COUNT/files/data-file/fcr:metadata > /dev/null
 
 	curl -is -X PUT -H "Content-Type: text/turtle" --data-binary @direct-has-file.ru 127.0.0.1:8080/fcrepo/rest/flatpcdmobjects/file1_$COUNT/files/	 > /dev/null

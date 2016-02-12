@@ -1,53 +1,21 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-WAIT_BEFORE_QUERY=300
+export WAIT_BEFORE_QUERY=45
 
-echo "##########################no-pcdm###########################"
+declare -a impls=("no-pcdm" "no-ldp-pcdm" "hier-pcdm" "flat-pcdm")
 
-NUM_OBJS=1
-$DIR/no-pcdm-create.sh
-$DIR/counts.sh
-NUM_OBJS=2
-$DIR/no-pcdm-create.sh
-$DIR/counts.sh
-NUM_OBJS=3
-$DIR/no-pcdm-create.sh
-$DIR/counts.sh
-
-
-echo "##########################no-ldp###########################"
-
-NUM_OBJS=1
-$DIR/no-ldp-pcdm-create.sh
-$DIR/counts.sh
-NUM_OBJS=2
-$DIR/no-ldp-pcdm-create.sh
-$DIR/counts.sh
-NUM_OBJS=3
-$DIR/no-ldp-pcdm-create.sh
-$DIR/counts.sh
-
-
-echo "###########################flat-pcdm##########################"
-
-NUM_OBJS=1
-$DIR/flat-pcdm-create.sh
-$DIR/counts.sh
-NUM_OBJS=2
-$DIR/flat-pcdm-create.sh
-$DIR/counts.sh
-NUM_OBJS=3
-$DIR/flat-pcdm-create.sh
-$DIR/counts.sh
-
-echo "###########################hier-pcdm##########################"
-
-NUM_OBJS=1
-$DIR/hier-pcdm-create.sh
-$DIR/counts.sh
-NUM_OBJS=2
-$DIR/hier-pcdm-create.sh
-$DIR/counts.sh
-NUM_OBJS=3
-$DIR/hier-pcdm-create.sh
-$DIR/counts.sh
+for impl in "${impls[@]}"
+do
+    echo "##########################$impl###########################"
+    
+    for (( i=1; i<=2; i++ ))
+    do
+        $DIR/restart-tomcat.sh
+        
+        export NUM_OBJS=$i
+        $DIR/$impl-create.sh
+        $DIR/counts.sh
+        
+        sleep 30
+    done
+done

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-curl -is -X PUT 127.0.0.1:8080/fcrepo/rest/nopcdm/dest
+curl -is -X PUT 127.0.0.1:8080/fcrepo/rest/nopcdm/dest > /dev/null
 
 START=`date +%s`
 

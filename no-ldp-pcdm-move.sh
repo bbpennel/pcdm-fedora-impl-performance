@@ -26,6 +26,3 @@ END=`date +%s`
 TOTAL=$(( $END - $START ))
 
 echo "Total time to move $OBJECTS noldp: $TOTAL"
-
-sleep ${WAIT_BEFORE_QUERY:-1}
-curl -si -X POST "http://127.0.0.1:8080/fuseki/test/query" --header "Content-Type: application/sparql-query" --data-binary "SELECT count(*) WHERE {  ?subject ?predicate ?object . FILTER (regex(STR(?subject), 'fcrepo/rest')) }" 2> /dev/null

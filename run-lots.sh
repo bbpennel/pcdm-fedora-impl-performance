@@ -1,44 +1,23 @@
+#!/bin/bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-NUM_OBJS=1000
-NUM_RUNS=3
+export NUM_OBJS=1
+NUM_RUNS=2
 
-echo "##########################no-pcdm###########################"
+declare -a impls=("no-pcdm" "no-ldp-pcdm" "min-no-ldp-pcdm" "hier-pcdm" "flat-pcdm")
 
-COUNTER=0
-while [ $COUNTER -lt $NUM_RUNS ]; do
-	$DIR/no-pcdm-create.sh
-	$DIR/no-pcdm-move.sh
-	$DIR/no-pcdm-delete.sh
-	$COUNTER=$COUNTER + 1
-done
+for impl in "${impls[@]}"
+do
+    echo "##########################$impl###########################"
 
-echo "##########################no-ldp###########################"
+    for (( i=1; i<=$NUM_RUNS; i++ ))
+    do
+        $DIR/restart-tomcat.sh
 
-COUNTER=0
-while [ $COUNTER -lt $NUM_RUNS ]; do
-	$DIR/no-ldp-pcdm-create.sh
-	$DIR/no-ldp-pcdm-move.sh
-	$DIR/no-ldp-pcdm-delete.sh
-	$COUNTER=$COUNTER + 1
-done
+        $DIR/$impl-create.sh
+        $DIR/$impl-move.sh
+        $DIR/$impl-delete.sh
 
-echo "###########################flat-pcdm##########################"
-
-COUNTER=0
-while [ $COUNTER -lt $NUM_RUNS ]; do
-	$DIR/flat-pcdm-create.sh
-	$DIR/flat-pcdm-move.sh
-	$DIR/flat-pcdm-delete.sh
-	$COUNTER=$COUNTER + 1
-done
-
-echo "###########################hier-pcdm##########################"
-
-COUNTER=0
-while [ $COUNTER -lt $NUM_RUNS ]; do
-	$DIR/hier-pcdm-create.sh
-	$DIR/hier-pcdm-move.sh
-	$DIR/hier-pcdm-delete.sh
-	$COUNTER=$COUNTER + 1
+        sleep 30
+    done
 done
