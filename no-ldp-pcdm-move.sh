@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-curl -is -X PUT 127.0.0.1:8080/fcrepo/rest/noldp/dest > /dev/null
+curl -is -X PUT $FEDORA_BASE/noldp/dest > /dev/null
 
 START=`date +%s`
 
@@ -10,12 +10,12 @@ while [ $COUNT -lt $OBJECTS ]; do
 	
 	echo "PREFIX pcdm: <http://pcdm.org/models#>
 	DELETE { <> pcdm:hasMember </fcrepo/rest/noldp/obj$COUNT> } WHERE {}
-	" | curl -is -X PATCH -H "Content-Type: application/sparql-update" --data-binary @- 127.0.0.1:8080/fcrepo/rest/noldp > /dev/null
+	" | curl -is -X PATCH -H "Content-Type: application/sparql-update" --data-binary @- $FEDORA_BASE/noldp > /dev/null
 	
-	curl -is -X MOVE -H "Destination: http://127.0.0.1:8080/fcrepo/rest/noldp/dest/obj$COUNT" 127.0.0.1:8080/fcrepo/rest/noldp/obj$COUNT > /dev/null
+	curl -is -X MOVE -H "Destination: $FEDORA_BASE/noldp/dest/obj$COUNT" $FEDORA_BASE/noldp/obj$COUNT > /dev/null
 	
 	echo "PREFIX pcdm: <http://pcdm.org/models#> INSERT { <> pcdm:hasMember </fcrepo/rest/noldp/dest/obj$COUNT> } WHERE {}
-	" | curl -is -X PATCH -H "Content-Type: application/sparql-update" --data-binary @- 127.0.0.1:8080/fcrepo/rest/noldp/dest > /dev/null
+	" | curl -is -X PATCH -H "Content-Type: application/sparql-update" --data-binary @- $FEDORA_BASE/noldp/dest > /dev/null
 	
 	# echo "$COUNT"
 	

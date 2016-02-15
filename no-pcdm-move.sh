@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-curl -is -X PUT 127.0.0.1:8080/fcrepo/rest/nopcdm/dest > /dev/null
+curl -is -X PUT $FEDORA_BASE/nopcdm/dest > /dev/null
 
 START=`date +%s`
 
@@ -8,7 +8,7 @@ COUNT=0
 OBJECTS=${NUM_OBJS:-1000}
 while [ $COUNT -lt $OBJECTS ]; do
 	
-	curl -is -X MOVE -H "Destination: http://127.0.0.1:8080/fcrepo/rest/nopcdm/dest/obj$COUNT" 127.0.0.1:8080/fcrepo/rest/nopcdm/obj$COUNT > /dev/null
+	curl -is -X MOVE -H "Destination: $FEDORA_BASE/nopcdm/dest/obj$COUNT" $FEDORA_BASE/nopcdm/obj$COUNT > /dev/null
 	
 	# echo "$COUNT"
 	

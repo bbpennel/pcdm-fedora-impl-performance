@@ -1,3 +1,8 @@
+To run all tests, from your fcrepo4-vagrant directory:
+```
+/path/to/pcdm-fedora-impl-performance/run-all.sh
+```
+
 Tests include creating objects in a container, moving them into a subcontainer, and then deleting the original base container.  The following scripts are for performance testing basic operations:
   * *-pcdm-create.sh
   * *-pcdm-move.sh
