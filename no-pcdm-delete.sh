@@ -6,5 +6,4 @@ curl -is -X DELETE $FEDORA_BASE/nopcdm/fcr:tombstone > /dev/null
 END=`date +%s`
 TOTAL=$(( $END - $START ))
 
-echo "Total time to delete $OBJECTS nopcdm: $TOTAL"
-export PERF_RESULT_TIME=$TOTAL
+echo "NO-PCDM	DELETE	0	$NUM_OBJS	$TOTAL"

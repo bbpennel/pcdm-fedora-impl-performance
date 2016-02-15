@@ -7,7 +7,9 @@ curl -is -X PUT -H "Content-Type: text/turtle" --data-binary @$DIR/direct-has-me
 START=`date +%s`
 
 COUNT=${START_COUNT:-0}
-OBJECTS=$(($COUNT + ${NUM_OBJS:-1000}))
+OBJECTS=${NUM_OBJS:-1000}
+OBJECTS=$((OBJECTS + COUNT))
+echo -n "HIER-PCDM	CREATE	$COUNT	$OBJECTS	"
 while [ $COUNT -lt $OBJECTS ]; do
 	curl -is -X PUT -H "Content-Type: text/turtle" --data-binary @$DIR/pcdm-object.ttl $FEDORA_BASE/hierpcdm/m/obj$COUNT/ > /dev/null
 	curl -is -X PUT -H "Content-Type: text/turtle" --data-binary @$DIR/direct-has-member.ru $FEDORA_BASE/hierpcdm/m/obj$COUNT/m/ > /dev/null
@@ -32,5 +34,4 @@ done
 END=`date +%s`
 TOTAL=$(( $END - $START ))
 
-echo "Total time to create $OBJECTS hierpcdm: $TOTAL"
-export PERF_RESULT_TIME=$TOTAL
+echo "$TOTAL"

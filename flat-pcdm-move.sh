@@ -13,7 +13,9 @@ echo "
 START=`date +%s`
 
 COUNT=${START_COUNT:-0}
-OBJECTS=$(($COUNT + ${NUM_OBJS:-1000}))
+OBJECTS=${NUM_OBJS:-1000}
+OBJECTS=$((OBJECTS + COUNT))
+echo -n "FLAT-PCDM	MOVE	$COUNT	$OBJECTS	"
 while [ $COUNT -lt $OBJECTS ]; do
 	
 	curl -is -X MOVE -H "Destination: $FEDORA_BASE/flatpcdmobjects/dest/members/objProxy$COUNT" $FEDORA_BASE/flatpcdm/members/objProxy$COUNT > /dev/null
@@ -33,5 +35,4 @@ done
 END=`date +%s`
 TOTAL=$(( $END - $START ))
 
-echo "Total time to move $OBJECTS flatpcdm: $TOTAL"
-export PERF_RESULT_TIME=$TOTAL
+echo "$TOTAL"

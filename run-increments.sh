@@ -23,14 +23,8 @@ do
 
     for (( i=0; i<$NUM_RUNS; i++ ))
     do
- 		export START_COUNT=$(($i * $NUM_RUNS))
+ 		export START_COUNT=$((i * NUM_RUNS))
         $DIR/$impl-create.sh
-        CREATE_TOTAL=$(($CREATE_TOTAL + $PERF_RESULT_TIME))
         $DIR/$impl-move.sh
-
-        END_COUNT=$((($i + 1) * $NUM_RUNS))
-        MOVE_TOTAL=$(($MOVE_TOTAL + $PERF_RESULT_TIME))
-
-        echo "$END_COUNT $CREATE_TOTAL $MOVE_TOTAL"
     done
 done
