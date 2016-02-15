@@ -23,6 +23,11 @@ do
     do
         export START_COUNT=$((i * NUM_OBJS))
         $DIR/$impl-create.sh
+    done
+
+    for (( i=0; i<$NUM_RUNS; i++ ))
+    do
+        export START_COUNT=$((i * NUM_OBJS))
         $DIR/$impl-move.sh
     done
 done
