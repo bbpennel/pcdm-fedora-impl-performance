@@ -7,7 +7,7 @@ export BASE_URL="http://127.0.0.1:8080"
 export FEDORA_BASE="$BASE_URL/fcrepo/rest"
 export WAIT_BEFORE_QUERY=45
 
-declare -a impls=("no-pcdm" "no-ldp-pcdm" "hier-pcdm" "flat-pcdm")
+declare -a impls=("no-pcdm" "no-ldp-pcdm" "min-no-ldp-pcdm" "hier-pcdm" "flat-pcdm")
 
 for impl in "${impls[@]}"
 do

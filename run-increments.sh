@@ -18,12 +18,10 @@ for impl in "${impls[@]}"
 do
     echo "##########################$impl###########################"
     $DIR/restart-tomcat.sh
-    CREATE_TOTAL=0
-    MOVE_TOTAL=0
 
     for (( i=0; i<$NUM_RUNS; i++ ))
     do
- 		export START_COUNT=$((i * NUM_RUNS))
+        export START_COUNT=$((i * NUM_OBJS))
         $DIR/$impl-create.sh
         $DIR/$impl-move.sh
     done
