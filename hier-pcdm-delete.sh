@@ -7,3 +7,4 @@ END=`date +%s`
 TOTAL=$(( $END - $START ))
 
 echo "Total time to delete $OBJECTS hierpcdm: $TOTAL"
+export PERF_RESULT_TIME=$TOTAL

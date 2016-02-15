@@ -5,8 +5,8 @@ curl -is -X PUT  -H "Content-Type: text/turtle" --data-binary @$DIR/pcdm-collect
 
 START=`date +%s`
 
-COUNT=0
-OBJECTS=${NUM_OBJS:-1000}
+COUNT=${START_COUNT:-0}
+OBJECTS=$(($COUNT + ${NUM_OBJS:-1000}))
 while [ $COUNT -lt $OBJECTS ]; do
 	
 	curl -is -X PUT -H "Content-Type: text/turtle" --data-binary @$DIR/pcdm-object.ttl $FEDORA_BASE/mnoldp/obj$COUNT > /dev/null
@@ -27,3 +27,4 @@ END=`date +%s`
 TOTAL=$(( $END - $START ))
 
 echo "Total time to create $OBJECTS min-mnoldp: $TOTAL"
+export PERF_RESULT_TIME=$TOTAL

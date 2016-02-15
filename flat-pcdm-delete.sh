@@ -2,8 +2,8 @@
 
 START=`date +%s`
 
-COUNT=0
-OBJECTS=${NUM_OBJS:-1000}
+COUNT=${START_COUNT:-0}
+OBJECTS=$(($COUNT + ${NUM_OBJS:-1000}))
 while [ $COUNT -lt $OBJECTS ]; do
 	
 	curl -is -X DELETE $FEDORA_BASE/flatpcdmobjects/obj$COUNT/ > /dev/null
@@ -24,3 +24,4 @@ END=`date +%s`
 TOTAL=$(( $END - $START ))
 
 echo "Total time to delete $OBJECTS flatpcdm: $TOTAL"
+export PERF_RESULT_TIME=$TOTAL

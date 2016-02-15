@@ -16,11 +16,10 @@ do
     for (( i=1; i<=3; i++ ))
     do
         $DIR/restart-tomcat.sh
+        sleep 30
         
         export NUM_OBJS=$i
         $DIR/$impl-create.sh
         $DIR/counts.sh
-        
-        sleep 30
     done
 done

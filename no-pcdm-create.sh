@@ -4,8 +4,8 @@ curl -is -X PUT $FEDORA_BASE/nopcdm > /dev/null
 
 START=`date +%s`
 
-COUNT=0
-OBJECTS=${NUM_OBJS:-1000}
+COUNT=${START_COUNT:-0}
+OBJECTS=$(($COUNT + ${NUM_OBJS:-1000}))
 while [ $COUNT -lt $OBJECTS ]; do
 	
 	curl -is -X PUT $FEDORA_BASE/nopcdm/obj$COUNT > /dev/null
@@ -25,3 +25,4 @@ END=`date +%s`
 TOTAL=$(( $END - $START ))
 
 echo "Total time to create $OBJECTS nopcdm: $TOTAL"
+export PERF_RESULT_TIME=$TOTAL
