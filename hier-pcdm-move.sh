@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" 
 
-curl -is -X PUT -H "Content-Type: text/turtle" --data-binary @pcdm-collection.ttl $FEDORA_BASE/hierpcdm/m/dest > /dev/null
-curl -is -X PUT -H "Content-Type: text/turtle" --data-binary @direct-has-member.ru $FEDORA_BASE/hierpcdm/m/dest/m/ > /dev/null
+curl -is -X PUT -H "Content-Type: text/turtle" --data-binary @$DIR/pcdm-collection.ttl $FEDORA_BASE/hierpcdm/m/dest > /dev/null
+curl -is -X PUT -H "Content-Type: text/turtle" --data-binary @$DIR/direct-has-member.ru $FEDORA_BASE/hierpcdm/m/dest/m/ > /dev/null
 
 START=`date +%s`
 

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" 
 
-curl -is -X PUT  -H "Content-Type: text/turtle" --data-binary @pcdm-collection.ttl $FEDORA_BASE/noldp > /dev/null
+curl -is -X PUT  -H "Content-Type: text/turtle" --data-binary @$DIR/pcdm-collection.ttl $FEDORA_BASE/noldp > /dev/null
 
 START=`date +%s`
 
@@ -8,7 +9,7 @@ COUNT=0
 OBJECTS=${NUM_OBJS:-1000}
 while [ $COUNT -lt $OBJECTS ]; do
 	
-	curl -is -X PUT -H "Content-Type: text/turtle" --data-binary @pcdm-object.ttl $FEDORA_BASE/noldp/obj$COUNT > /dev/null
+	curl -is -X PUT -H "Content-Type: text/turtle" --data-binary @$DIR/pcdm-object.ttl $FEDORA_BASE/noldp/obj$COUNT > /dev/null
 	
 	echo "PREFIX pcdm: <http://pcdm.org/models#> 
 	INSERT { 
@@ -16,8 +17,8 @@ while [ $COUNT -lt $OBJECTS ]; do
 	} WHERE {}
 	" | curl -is -X PATCH -H "Content-Type: application/sparql-update" --data-binary @- $FEDORA_BASE/noldp > /dev/null
 
-	curl -is -X PUT -H "Content-Type: text/turtle" --data-binary @pcdm-object.ttl $FEDORA_BASE/noldp/obj$COUNT/file0 > /dev/null
-	curl -is -X PUT -H "Content-Type: text/turtle" --data-binary @pcdm-object.ttl $FEDORA_BASE/noldp/obj$COUNT/file1 > /dev/null
+	curl -is -X PUT -H "Content-Type: text/turtle" --data-binary @$DIR/pcdm-object.ttl $FEDORA_BASE/noldp/obj$COUNT/file0 > /dev/null
+	curl -is -X PUT -H "Content-Type: text/turtle" --data-binary @$DIR/pcdm-object.ttl $FEDORA_BASE/noldp/obj$COUNT/file1 > /dev/null
 	
 	echo "PREFIX pcdm: <http://pcdm.org/models#> 
 	INSERT { 
@@ -27,7 +28,7 @@ while [ $COUNT -lt $OBJECTS ]; do
 	" | curl -is -X PATCH -H "Content-Type: application/sparql-update" --data-binary @- $FEDORA_BASE/noldp/obj$COUNT > /dev/null
 	
 	curl -is -X PUT $FEDORA_BASE/noldp/obj$COUNT/file0/data-file > /dev/null
-	curl -is -X PATCH -H "Content-Type: application/sparql-update" --data-binary @original-file.ru $FEDORA_BASE/noldp/obj$COUNT/file0/data-file > /dev/null
+	curl -is -X PATCH -H "Content-Type: application/sparql-update" --data-binary @$DIR/original-file.ru $FEDORA_BASE/noldp/obj$COUNT/file0/data-file > /dev/null
 	echo "PREFIX pcdm: <http://pcdm.org/models#> 
 	INSERT { 
 		<> pcdm:hasFile <$FEDORA_BASE/noldp/obj$COUNT/file0/data-file> 
@@ -35,7 +36,7 @@ while [ $COUNT -lt $OBJECTS ]; do
 	" | curl -is -X PATCH -H "Content-Type: application/sparql-update" --data-binary @- $FEDORA_BASE/noldp/obj$COUNT/file0 > /dev/null
 	
 	curl -is -X PUT $FEDORA_BASE/noldp/obj$COUNT/file1/data-file > /dev/null
-	curl -is -X PATCH -H "Content-Type: application/sparql-update" --data-binary @original-file.ru $FEDORA_BASE/noldp/obj$COUNT/file1/data-file > /dev/null
+	curl -is -X PATCH -H "Content-Type: application/sparql-update" --data-binary @$DIR/original-file.ru $FEDORA_BASE/noldp/obj$COUNT/file1/data-file > /dev/null
 	echo "PREFIX pcdm: <http://pcdm.org/models#>
 	INSERT {
 		<> pcdm:hasFile <$FEDORA_BASE/noldp/obj$COUNT/file1/data-file>
