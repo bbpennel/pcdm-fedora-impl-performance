@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-curl -is -X PUT $FEDORA_BASE/noldp/dest > /dev/null
+curl -is -X PUT -H "Content-Type: text/turtle" --data-binary @$DIR/pcdm-collection.ttl $FEDORA_BASE/noldp/dest > /dev/null
 
 START=`date +%s`
 
