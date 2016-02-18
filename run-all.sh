@@ -27,6 +27,5 @@ do
         $DIR/$impl-move.sh
         $DIR/$impl-delete.sh
 
-        sleep 30
     done
 done
