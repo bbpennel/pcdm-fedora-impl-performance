@@ -23,6 +23,7 @@ do
     do
         export START_COUNT=$((i * NUM_OBJS))
         $DIR/$impl-create.sh
+        $DIR/$impl-traverse.sh
     done
 
     for (( i=0; i<$NUM_RUNS; i++ ))

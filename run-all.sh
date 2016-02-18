@@ -23,9 +23,9 @@ do
         $DIR/restart-tomcat.sh
 
         $DIR/$impl-create.sh
+        $DIR/$impl-traverse.sh
         $DIR/$impl-move.sh
         $DIR/$impl-delete.sh
 
-        sleep 30
     done
 done

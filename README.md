@@ -5,10 +5,11 @@ or
 /path/to/pcdm-fedora-impl-performance/run-increments.sh
 ```
 
-Tests include creating objects in a container, moving them into a subcontainer, and then deleting the original base container.  The following scripts are for performance testing basic operations:
+Tests include creating objects in a container, reading them, moving them into a subcontainer, and then deleting the original base container.  The following scripts are for performance testing basic operations:
   * *-pcdm-create.sh
   * *-pcdm-move.sh
   * *-pcdm-delete.sh
+  * *-pcdm-traverse.sh
 
 All tests create a single base container, which is then populated with X children objects.  Each object has two children, each containing one object (representing where binaries would be located).  This case was chosen to represent our own use cases and allow us to test the various LDP scenarios.
 
