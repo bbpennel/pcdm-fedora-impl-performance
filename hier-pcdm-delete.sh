@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 BASE_URI="$FEDORA_BASE/hierpcdm"
-if [-n $AFTER_MOVE]; then
+if [ -n $AFTER_MOVE ]; then
 	BASE_URI="$BASE_URI/dest/m"
 fi
 
