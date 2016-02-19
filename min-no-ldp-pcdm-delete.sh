@@ -20,4 +20,4 @@ done
 END=`date +%s`
 TOTAL=$(( $END - $START ))
 
-echo "MIN-NO-LDP	0	$NUM_OBJS	$TOTAL"
+echo "MIN-NO-LDP	DELETE	0	$NUM_OBJS	$TOTAL"
