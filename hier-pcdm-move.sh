@@ -9,12 +9,10 @@ START=`date +%s`
 COUNT=${START_COUNT:-0}
 OBJECTS=${NUM_OBJS:-1000}
 OBJECTS=$((OBJECTS + COUNT))
-echo -n "HIER-PCDM	MOVE	$COUNT	$OBJECTS	"
+echo -n "HIER-PCDM	DELETE	$COUNT	$OBJECTS	"
 while [ $COUNT -lt $OBJECTS ]; do
 	
 	curl -is -X MOVE -H "Destination: $FEDORA_BASE/hierpcdm/m/dest/m/obj$COUNT" $FEDORA_BASE/hierpcdm/m/obj$COUNT > /dev/null
-	
-	# echo "$COUNT"
 	
 	COUNT=$(( COUNT + 1 ))
 done

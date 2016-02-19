@@ -5,6 +5,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 export BASE_URL="http://127.0.0.1:8080"
 export FEDORA_BASE="$BASE_URL/fcrepo/rest"
+export AFTER_MOVE=true
 
 # Number of high level objects to test with
 export NUM_OBJS=1000
